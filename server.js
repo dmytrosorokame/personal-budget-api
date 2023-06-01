@@ -1,12 +1,17 @@
 const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
-const app = express();
+const expensesRouter = require("./routes/expenses-router");
 
 const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.send({ message: "Welcome to the application." });
-});
+const app = express();
+
+app.use(cors());
+app.use(bodyParser.json());
+
+app.use("/expenses", expensesRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
