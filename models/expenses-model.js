@@ -1,6 +1,5 @@
 class Expenses {
   constructor() {
-    // instances of Expense class
     this.expenses = [];
   }
 

@@ -54,10 +54,25 @@ const updateExpense = (req, res) => {
   res.status(200).send(updatedExpense);
 };
 
+const deleteExpense = (req, res) => {
+  const { expenseId } = req.params;
+
+  const expense = expensesModel.get(Number(expenseId));
+
+  if (!expense) {
+    return res.status(404).send("Expense not found.");
+  }
+
+  expensesModel.delete(Number(expenseId));
+
+  res.sendStatus(204);
+};
+
 module.exports = {
   getExpenses,
   getExpenseById,
   createExpense,
   getTotalAmountOfExpenses,
   updateExpense,
+  deleteExpense,
 };
