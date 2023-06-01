@@ -36,9 +36,28 @@ const getTotalAmountOfExpenses = (req, res) => {
   res.status(200).send({ total });
 };
 
+const updateExpense = (req, res) => {
+  const { expenseId } = req.params;
+  const { amount, description } = req.body;
+
+  const expense = expensesModel.get(Number(expenseId));
+
+  if (!expense) {
+    return res.status(404).send("Expense not found.");
+  }
+
+  const updatedExpense = expensesModel.update(Number(expenseId), {
+    amount,
+    description,
+  });
+
+  res.status(200).send(updatedExpense);
+};
+
 module.exports = {
   getExpenses,
   getExpenseById,
   createExpense,
   getTotalAmountOfExpenses,
+  updateExpense,
 };
