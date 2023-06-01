@@ -39,6 +39,10 @@ class Expenses {
   delete(id) {
     this.expenses = this.expenses.filter((expense) => expense.id !== id);
   }
+
+  getTotal() {
+    return this.expenses.reduce((total, expense) => total + expense.amount, 0);
+  }
 }
 
 const expensesModel = new Expenses();

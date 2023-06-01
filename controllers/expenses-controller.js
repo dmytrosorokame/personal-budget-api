@@ -6,6 +6,18 @@ const getExpenses = (req, res) => {
   res.status(200).send(expenses);
 };
 
+const getExpenseById = (req, res) => {
+  const { expenseId } = req.params;
+
+  const expense = expensesModel.get(Number(expenseId));
+
+  if (!expense) {
+    return res.status(404).send("Expense not found.");
+  }
+
+  res.status(200).send(expense);
+};
+
 const createExpense = (req, res) => {
   const { amount, description } = req.body;
 
@@ -18,7 +30,15 @@ const createExpense = (req, res) => {
   res.status(201).send(expense);
 };
 
+const getTotalAmountOfExpenses = (req, res) => {
+  const total = expensesModel.getTotal();
+
+  res.status(200).send({ total });
+};
+
 module.exports = {
   getExpenses,
+  getExpenseById,
   createExpense,
+  getTotalAmountOfExpenses,
 };
