@@ -11,11 +11,13 @@ const {
   deleteExpense,
 } = require("../controllers/expenses-controller");
 
+const validateExpenseExists = require("../middlewares/validate-expense-exists");
+
 router.get("/", getExpenses);
 router.get("/total", getTotalAmountOfExpenses);
-router.get("/:expenseId", getExpenseById);
+router.get("/:expenseId", validateExpenseExists, getExpenseById);
 router.post("/", createExpense);
-router.patch("/:expenseId", updateExpense);
-router.delete("/:expenseId", deleteExpense);
+router.patch("/:expenseId", validateExpenseExists, updateExpense);
+router.delete("/:expenseId", validateExpenseExists, deleteExpense);
 
 module.exports = router;

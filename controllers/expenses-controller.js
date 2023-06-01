@@ -7,15 +7,7 @@ const getExpenses = (req, res) => {
 };
 
 const getExpenseById = (req, res) => {
-  const { expenseId } = req.params;
-
-  const expense = expensesModel.get(Number(expenseId));
-
-  if (!expense) {
-    return res.status(404).send("Expense not found.");
-  }
-
-  res.status(200).send(expense);
+  res.status(200).send(req.expense);
 };
 
 const createExpense = (req, res) => {
@@ -40,12 +32,6 @@ const updateExpense = (req, res) => {
   const { expenseId } = req.params;
   const { amount, description } = req.body;
 
-  const expense = expensesModel.get(Number(expenseId));
-
-  if (!expense) {
-    return res.status(404).send("Expense not found.");
-  }
-
   const updatedExpense = expensesModel.update(Number(expenseId), {
     amount,
     description,
@@ -56,12 +42,6 @@ const updateExpense = (req, res) => {
 
 const deleteExpense = (req, res) => {
   const { expenseId } = req.params;
-
-  const expense = expensesModel.get(Number(expenseId));
-
-  if (!expense) {
-    return res.status(404).send("Expense not found.");
-  }
 
   expensesModel.delete(Number(expenseId));
 
